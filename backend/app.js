@@ -49,13 +49,14 @@ app.post('/api/stuff', (req, res, next) => {
 });
 
 app.get('/api/stuff', (req, res, next) => {
-    thing.find().then((things) => {
+    Thing.find().then((things)=>{
         res.status(200).json(things);
-    }).catch((error) => {
+    }
+    ).catch((error)=>{
         res.status(400).json({
             error: error
         });
-    })
+    });
 });
 
 module.exports = app;
