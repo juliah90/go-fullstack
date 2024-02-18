@@ -5,7 +5,7 @@ const Thing = require('./models/thing');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority')
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`)
     .then(() => {
         console.log('Successfully connected to mongodb atlas');
     })
