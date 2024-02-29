@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Thing = require('./models/thing');
+const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
@@ -23,38 +24,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/api/stuff', (req, res, next) => {
-    const thing = new Thing({
-        title: req.body.title,
-        description: req.body.description,
-        imageUrl: req.body.imageUrl,
-        price: req.body.price,
-        userId: req.body.userId
-    });
-    thing.save().then(
-        () => {
-            res.status(201).json({
-                message: 'Post saved successfully!'
-            });
-        }
-    ).catch(
-        (error) => {
-            res.status(400).json({
-                error: error
-            });
-        }
-    );
-});
-
-app.get('/api/stuff', (req, res, next) => {
-    Thing.find().then((things)=>{
-        res.status(200).json(things);
-    }
-    ).catch((error)=>{
-        res.status(400).json({
-            error: error
-        });
-    });
-});
+app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
